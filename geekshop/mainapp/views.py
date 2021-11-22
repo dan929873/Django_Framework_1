@@ -1,40 +1,23 @@
 from django.shortcuts import render
-# {% load static %}
+import json
+import os
 
 # Create your views here.
+from mainapp.models import Product, ProductCategory
+
+MODULE_DIR =os.path.dirname(__file__)
+
 def index(request):
-    return render(request, 'mainapp/index.html')
+    context = {
+        'title': 'Geelshop',
+    }
+    return render(request, 'mainapp/index.html', context)
 
 
 def products(request):
-    context ={
-        'products': [
-            {'cardimgtop':'vendor/img/products/Adidas-hoodie.png',
-             'cardtitle':'Худи черного цвета с монограммами adidas Originals',
-             'price':'6 090,00 руб.',
-             'cardtext':'Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.'},
-            {'cardimgtop':'vendor/img/products/Blue-jacket-The-North-Face.png',
-             'cardtitle': 'Синяя куртка The North Face',
-             'price': '23 725,00 руб.',
-             'cardtext': 'Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.'},
-            {'cardimgtop':"vendor/img/products/Brown-sports-oversized-top-ASOS-DESIGN.png",
-             'cardtitle': 'Коричневый спортивный oversized-топ ASOS DESIGN',
-             'price': '3 390,00 руб.',
-             'cardtext': 'Материал с плюшевой текстурой. Удобный и мягкий.'},
-            {'cardimgtop':"vendor/img/products/Black-Nike-Heritage-backpack.png",
-             'cardtitle': 'Черный рюкзак Nike Heritage',
-             'price': '2 340,00 руб.',
-             'cardtext': 'Плотная ткань. Легкий материал.'},
-            {'cardimgtop':"vendor/img/products/Black-Dr-Martens-shoes.png",
-             'cardtitle': 'Черные туфли на платформе с 3 парами люверсов Dr Martens 1461 Bex',
-             'price': '13 590,00 руб.',
-             'cardtext': 'Гладкий кожаный верх. Натуральный материал.'},
-            {'cardimgtop':"vendor/img/products/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png",
-             'cardtitle':'Темно-синие широкие строгие брюки ASOS DESIGN',
-             'price': '2 890,00 руб.',
-             'cardtext': 'Легкая эластичная ткань сирсакер Фактурная ткань.'},
-
-        ]
+    context = {
+        'title': 'Geelshop | Каталог',
     }
-
+    context['products'] = Product.objects.all()
+    context['categories'] = ProductCategory.objects.all()
     return render(request, 'mainapp/products.html', context)
