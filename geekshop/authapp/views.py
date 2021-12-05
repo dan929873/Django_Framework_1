@@ -40,9 +40,7 @@ def register(request):
             print(form.errors)
     else:
         form = UserRegisterForm()
-    context = {
-        'title': 'Geekshop | Регистрация',
-        'form': form}
+    context = {'title': 'Geekshop | Регистрация', 'form': form}
     return render(request, 'authapp/register.html', context)
 
 
