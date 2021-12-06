@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 
 from authapp.models import User
 
@@ -40,13 +40,14 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
 
-    # def __init__(self, *args, **kwargs):
-    #     super(UserRegisterForm, self).__init__(*args, **kwargs)
-    #     self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
-    #     self.fields['email'].widget.attrs['placeholder'] = 'Введите адрес эл.почты'
-    #     self.fields['first_name'].widget.attrs['placeholder'] = 'Введите  имя'
-    #     self.fields['last_name'].widget.attrs['placeholder'] = 'Введите  фамилию'
-    #     self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
-    #     self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
-    #     for field_name, field in self.fields.items():
-    #         field.widget.attrs['class'] = 'form-control py-4'
+
+class UserProfileForm(UserChangeForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control py-4', 'readonly': True}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    image = forms.CharField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name', 'image')
