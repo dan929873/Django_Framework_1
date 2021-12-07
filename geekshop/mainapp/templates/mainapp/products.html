@@ -65,13 +65,18 @@
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">{{product.name}}</a>
+                                    <a href="#">{{ product.name }}</a>
                                 </h4>
-                                <h5>{{product.price}}</h5>
-                                <p class="card-text">{{product.description}}</p>
+                                <h5>{{ product.price }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
                             </div>
                             <div class="card-footer text-center">
-                                <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                                <a href="{% url 'baskets:basket_add' product.id %}">
+                                    <button type="button" class="btn btn-outline-success">
+                                        Отправить в корзину
+                                    </button>
+                                </a>
+
                             </div>
                         </div>
                     </div>
