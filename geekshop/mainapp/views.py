@@ -14,12 +14,12 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def products(request):
-    # file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
-    context = {
-        'title': 'Geelshop | Каталог',
-    }
-    context['products'] = Product.objects.all()
-    context['categories'] = ProductCategory.objects.all()
-    # context['products'] = json.load(open(file_path, encoding='utf-8'))
+def products(request, category_id=None):
+    context = {'title': 'Geelshop | Каталог', 'categories': ProductCategory.objects.all()}
+    if category_id:
+        products = Product.objects.filter(category_id=category_id)
+        context.update({'products': products})
+    else:
+        context.update({'products': Product.objects.all()})
+
     return render(request, 'mainapp/products.html', context)
